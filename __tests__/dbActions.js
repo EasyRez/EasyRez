@@ -14,12 +14,32 @@ describe('SQL unit tests', () => {
   });
 
   describe('User sign up model tests', () => {
+    let consumer;
+    let admin;
 
+    it('should create a new consumer with the correct properties', async () => {
+      const consumerInfo = { username: 'newConsumer', email: 'newUser@user.com', password: 'test', role: 'consumer' };
+      consumer = User.createUser(consumerInfo);
+      expect(consumer.id).toBeDefined();
+      expect(consumer.username).toEqual('newConsumer');
+      expect(consumer.role).toEqual('consumer');
+    });
+
+    it('should create a new admin with the correct properties', async () => {
+      const adminInfo = { username: 'newAdmin', email: 'newAdmin@admin.com', password: 'test', role: 'business' };
+      admin = User.createUser(adminInfo);
+      expect(admin.id).toBeDefined();
+      expect(admin.role).toEqual('business');
+    })
+
+    afterAll( async () => {
+      // delete user (if consumer.id) ---> make sure it is __id
+      // delete admin (if admin.id)
+    })
   })
 
 
   describe('Business model tests', () => {
-    let userId;
 
     beforeAll(async () => {
       const userInfo = { username: 'user', email: 'user@user.com', password: 'test', role: 'business' };
@@ -28,24 +48,22 @@ describe('SQL unit tests', () => {
     })
 
     describe('create a business functionality', () => {
-      let newBusinessId;
+      let newBusiness;
 
       it('should create a business with the correct properties', async () => {
         const newBusinessInfo = { userId, name: 'Test business' };
-        const newBusiness = await Business.createBusiness(newBusinessInfo);
-        newBusinessId = newBusiness.id;
+        newBusiness = await Business.createBusiness(newBusinessInfo);
         expect(newBusiness.id).toBeDefined();
         expect(newBusiness.name).toEqual(newBusinessInfo.name);
       });
       
       afterEach(async () => {
-        // delete business (newBusinessId);
+        // delete business (if newBusiness.Id);
       })
     })
 
     describe('create a service functionality', () => {
-      let businessId;
-      let newServiceId;
+      let newService;
 
       beforeEach(async () => {
         const businessInfo = { name: 'SW Archery' };
@@ -55,23 +73,20 @@ describe('SQL unit tests', () => {
 
       it('should create a service with the correct properties', async () => {
         const newServiceInfo = { businessId, name: 'Advanced Archery', price: 35, duration: 45 }
-        const newService = await Business.createService(newServiceInfo);
-        newServiceId = newService.id;
+        newService = await Business.createService(newServiceInfo);
         expect(newService.id).toBeDefined();
         expect(newService.name).toEqual('Advanced Archery');
       })
 
       afterEach(async () => {
-        // delete service (newServiceId)
+        // delete service (newService.Id)
         // delete business (businessId)
       })
 
     })
 
     describe('create a time slot functionality', () => {
-      let businessId;
-      let serviceId;
-      let newTimeslotId;
+      let newTimeslot;
 
       beforeEach(async () => {
         const businessInfo = { name: 'Archery Paradise' };
@@ -86,12 +101,12 @@ describe('SQL unit tests', () => {
       it('should create a time slot with the correct properties', async () => {
         const newTimeslotInfo = { serviceId, startTime: '2023-10-31 12: 30: 00' };
         const newTimeslot = await Business.createTimeslot(newTimeslotInfo);
-        expect(newService.id).toBeDefined();
-        expect(newService.endTime).toEqual('2023-10-31 13: 30: 00');
+        expect(newTimeslot.id).toBeDefined();
+        expect(newTimeslot.endTime).toEqual('2023-10-31 13: 30: 00');
       })
 
       afterEach(async () => {
-        // delete timeslot (newTimeslotId)
+        // delete timeslot (newTimeslot.Id)
         // delete service (serviceId)
         // delete business (businessId)
       })
@@ -99,6 +114,8 @@ describe('SQL unit tests', () => {
   })
 
   describe('User model tests', () => {
+    let reservation;
+
     beforeAll(async () => {
 
       // creating mock users
@@ -147,14 +164,21 @@ describe('SQL unit tests', () => {
 
     describe('book a reservation', () => {
       it('should book a new reservation', async () => {
-        const reservation = await User.createReservation( {})
-
+        reservation = await User.createReservation({ timeslotId, userId })
+        expect(reservation.id).toBeDefined();
       })
     })
+
+    afterAll(async () => {
+      // delete reservation
+      // delete timeslot1
+      // delete timeslot2
+      // delete service 1
+      // delete service 2
+      // delete business
+      // delete user
+    })
   })
-
-
-
 });
 
 /*
