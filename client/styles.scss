@@ -1,0 +1,8 @@
+$lightBorder: 0.5px solid #a5a5a5;
+$lightRadius: 0.5rem;
+
+#create-box {
+  border: $lightBorder;
+  border-radius: $lightRadius;
+  padding: 1rem;
+}
