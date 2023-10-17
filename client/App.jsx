@@ -7,7 +7,7 @@ const App = () => {
     return (
       <div>
         <h1>This is App</h1>
-        <Consumer/>
+        {/*<Consumer/>*/}
         <Business/>
       </div>
     )
