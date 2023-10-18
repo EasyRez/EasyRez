@@ -6,25 +6,37 @@ import styles from '../styles.scss';
 const AvailableTimes = ({selectedServiceId, setSelectedServiceId, availableTimes, setAvailableTimes, selectedTimeId, setSelectedTimeId}) => {
     // const [serviceTimes, selectTime] = useState("choose a time");
     const fetchData = async () => {
-    try {
-        const response = await fetch(`http://localhost:3000/api/reservations/timeslots/${selectedServiceId}`); // : before selectedServiceId?
-        const array = await response.json();
-        setAvailableTimes(array)
-        console.log(array);
-  } catch (error) { 
-        console.error(error);
-        };
+      if(selectedServiceId){
+        try {
+          const response = await fetch(`http://localhost:3000/api/reservations/timeslots/${selectedServiceId}`); // : before selectedServiceId?
+          const array = await response.json();
+          setAvailableTimes(array)
+          console.log(array);
+        } catch (error) { 
+          console.error(error);
+          };
+      }
     }
 
 
     useEffect(() => {
-        //fetchData(); //uncomment to fetch times
+        fetchData(); //uncomment to fetch times
     }, [selectedServiceId])
 
 
     const handleTime = (event) => {
         setSelectedTimeId(event.target.value); // value 
       }
+
+    let timeOptions;
+
+    if (availableTimes){
+      console.log('available times: ', availableTimes);
+      timeOptions = availableTimes.map((timeslot, index) => {
+        return (<MenuItem key={index} value={timeslot.timeslot_id}>{timeslot.start_time}</MenuItem>)
+      })
+    }
+
 
     return (
       <div className= 'listOfTimes'>
@@ -36,9 +48,8 @@ const AvailableTimes = ({selectedServiceId, setSelectedServiceId, availableTimes
           width: 250,
           height: 50,
         }}
-      > {availableTimes?.map((times, index) => (
-          <MenuItem key={index} value={times}>{times}</MenuItem>
-      ))}
+      > 
+      {timeOptions}
       </Select>
     </div>
     )

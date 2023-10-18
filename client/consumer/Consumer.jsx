@@ -8,14 +8,14 @@ import styles from '../styles.scss'
 
 //create class selection logic
   
-const Consumer = () => {
+const Consumer = ({ userId }) => {
   
-  const [userId, setUserId] = useState(3); // hardcoded
   const [businessId, setBusinessId] = useState({business_id: 1});
   const [availableServices, setAvailableServices] = useState([]);
   const [selectedServiceId, setSelectedServiceId] = useState();
   const [availableTimes, setAvailableTimes] = useState();
   const [selectedTimeId, setSelectedTimeId] = useState();
+  const [isReserved, setIsReserved] = useState(false);
 
   // useEffect( () => {
   //   console.log('entering useEffect in create timeslot');
@@ -45,7 +45,7 @@ const Consumer = () => {
         setSelectedServiceId={setSelectedServiceId}
         businessId={businessId}
       />
-      {/*<AvailableTimes
+      <AvailableTimes
         selectedServiceId={selectedServiceId}
         setSelectedServiceId={setSelectedServiceId}
         availableTimes={availableTimes}
@@ -53,11 +53,15 @@ const Consumer = () => {
         selectedTimeId={selectedTimeId}
         setSelectedTimeId={setSelectedTimeId}
         />
-  */}
+  
      <FormPropsTextFields
       selectedServiceId={selectedServiceId}
       selectedTimeId={selectedTimeId}
-      userId={userId}/>
+      userId={userId}
+      availableServices={availableServices}
+      isReserved={isReserved}
+      setIsReserved={setIsReserved}
+      />
     </div>
     )
 }

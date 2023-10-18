@@ -24,8 +24,9 @@ reservationController.getAvailableServices = async (req, res, next) => {
  */
 reservationController.createReservation = async (req, res, next) => {
     try {
-        const { timeslotId, bookingTime, userId } = req.body;
-        const newReservation = await Reservation.createReservation({timeslotId, bookingTime, userId })
+        const { timeslotId, userId } = req.body;
+        console.log('req body is: ', req.body);
+        const newReservation = await Reservation.createReservation({timeslotId, userId })
         res.locals.reservation = newReservation;
         return next();
     } catch (err) {
@@ -41,7 +42,7 @@ reservationController.createReservation = async (req, res, next) => {
 reservationController.getTimeslots = async (req, res, next) => {
     try {
         const { serviceId } = req.params;
-        const timeslots = await Reservation.getTimeslotsByServiceId(serviceId);
+        const timeslots = await Reservation.getTimeslotsByServiceId({serviceId});
         res.locals.timeslots = timeslots;
         return next();
     } catch (err) {

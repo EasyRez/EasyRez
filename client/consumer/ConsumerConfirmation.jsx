@@ -3,7 +3,44 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import * as React from 'react';
 
-export default function FormPropsTextFields(selectedServiceId, userId, selectedTimeId) {
+export default function FormPropsTextFields({isReserved, setIsReserved, selectedServiceId, availableServices, userId, selectedTimeId}) {
+  let serviceName;
+  console.log('availableServices: ', availableServices);
+  console.log('selectedServiceId: ', selectedServiceId);
+  if (availableServices && selectedServiceId){
+    console.log('determining serviceName')
+    for (const service of availableServices){
+      console.log(service);
+      console.log(service.service_id)
+      if (service.service_id === selectedServiceId){
+        serviceName = service.service_name;
+        break;
+      }
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    // serviceId, maxSpaces, timeslotStartTime, timeslotEndTime
+    const timeslot = { timeslotId: selectedTimeId, userId }
+    console.log(timeslot);
+    try {
+      const response = await fetch('http://localhost:3000/api/reservations/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(timeslot),
+      });
+      const data = await response.json();
+      console.log(data);
+      setIsReserved(true);
+    } catch (error){
+      console.error(error);
+    }
+  }
+
+  let buttonText = isReserved ? 'Booked successfully!' : `Book ${serviceName || 'service'} at selected time.`
+  
   return (
     <Box
       component="form"
@@ -38,7 +75,7 @@ export default function FormPropsTextFields(selectedServiceId, userId, selectedT
         />
         */}
         <div className="confirm-button">
-          <Button variant="contained">{`Book ${selectedServiceId} for ${userId} at ${selectedTimeId}`}
+          <Button variant="contained" onClick={handleSubmit}>{buttonText}
           </Button>
         </div>
 

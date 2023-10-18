@@ -14,25 +14,25 @@ const getServicesByBusinessId = async params => {
 
     } catch (err) {
         console.error("Error creating user: ", err.message)
-        return next(err);
+        throw err;
     }
 };
 
 const createReservation = async reservationInfo => {
     try {
-        const { timeslotId, bookingTime, userId } = reservationInfo;
-        if (!timeslotId || !bookingTime || !userId) {
+        const { timeslotId, userId } = reservationInfo;
+        if (!timeslotId || !userId) {
             throw new Error('Missing reservationInfo');
         }
-        const values = [timeslotId, bookingTime, userId]
-        const query = `INSERT INTO reservations (timeslot_id, booking_time, user_id) VALUES ($1, $2, $3) RETURNING *`;
-
+        const values = [timeslotId, userId]
+        const query = `INSERT INTO reservations (timeslot_id, user_id) VALUES ($1, $2) RETURNING *`;
+        console.log(`now inserting ${values} into res table`)
         const result = await db.query(query, values);
         return result.rows;
 
     } catch (err) {
         console.error("Error creating user: ", err.message)
-        return next(err);
+        throw err;
     }
 
 };
@@ -51,7 +51,7 @@ const getTimeslotsByServiceId = async params => {
 
     } catch (err) {
         console.error("Error creating user: ", err.message)
-        return next(err);
+        throw err;
     }
 
 } 

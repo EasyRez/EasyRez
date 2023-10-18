@@ -23,7 +23,7 @@ const createBusinessProfile = async businessData => {
 
     } catch (err) {
         console.error("Error creating business: ", err.message);
-        // return next(err);
+        throw err;
     }
 };
 
@@ -33,7 +33,7 @@ const findAll = async () => {
         return result.rows;
     } catch (err) {
         console.error("Error fetching businesses:", err.message);
-        // return next(err);
+        throw err;
     }
 };
 
@@ -47,7 +47,7 @@ const findByUserId = async userId => {
         return result.rows[0];
     } catch (err) {
         console.error("Error fetching business by user ID:", err.message);
-        // return next(err);
+        throw err;
     }
 };
 
@@ -66,7 +66,7 @@ const createService = async serviceData => {
         return result.rows[0];
     } catch (err) {
         console.error("Error creating service: ", err.message);
-        // return next(err);
+        throw err;
     }
 };
 
@@ -88,7 +88,7 @@ const createTimeslot = async timeslotData => {
     return result.rows[0];
     } catch (err) {
         console.error("Error creating timeslot: ", err.message);
-        // return next(err);
+        throw err;
     }
 };
 
