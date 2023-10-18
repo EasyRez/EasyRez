@@ -84,6 +84,11 @@ router.get('/services/:businessId', businessController.getServicesByBusinessId, 
     res.status(200).json(res.locals.services);
 });
 
+// create timeslot
+router.post('/createTimeslot', businessController.createTimeslot, (req, res) => {
+    res.status(201).json(res.locals.timeslot);
+})
+
 
 
 module.exports = router;
