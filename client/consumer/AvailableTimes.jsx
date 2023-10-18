@@ -1,40 +1,41 @@
 import React from 'react';
 import { Select, MenuItem } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AvailableTimes = ({selectedServiceId, setSelectedServiceId, availableTimes, setAvailableTimes, selectedTimeId, setSelectedTimeId}) => {
     // const [serviceTimes, selectTime] = useState("choose a time");
+    const fetchData = async () => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/reservations/timeslots:${selectedServiceId}`);
+        const array = await response.json();
+        console.log(array);
+        setAvailableTimes(array)
+  } catch (error) { 
+        console.error(error);
+        };
+    }
 
 
     useEffect(() => {
-        const fetchData = async () => {
-        try {
-            const response = await fetch(`localhost:3000/api/reservations/timeslots:${selectedService}`);
-            const array = await response.json();
-            console.log(array);
-            setAvailableTimes(array)
-      } catch (error) { 
-            console.error(error);
-            };
-        }
-        fetchData();
-    }, [selectedService])
+        //fetchData();
+    }, [selectedServiceId])
+
 
     const handleTime = (event) => {
-        selectTime(event.target.time); // value 
+        setSelectedTimeId(event.target.value); // value 
       }
 
     return (
       <div className = 'listOfTimes'>
       <Select
-        times={serviceTimes}
+        value={selectedTimeId}
         onChange={handleTime}
         sx={{
-          marginTop: 30,
+          bottom: 30,
           width: 250,
           height: 50,
         }}
-      > {serviceTimes?.map((times, index) => (
+      > {availableTimes?.map((times, index) => (
           <MenuItem key={index} value={times}>{times}</MenuItem>
       ))}
       </Select>

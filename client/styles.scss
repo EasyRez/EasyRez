@@ -1,0 +1,15 @@
+.listOfServices {
+    display: flex;
+    justify-content: center;
+}
+
+.name-field,
+.email-field {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.name-field {
+  margin-bottom: 5vh;
+}

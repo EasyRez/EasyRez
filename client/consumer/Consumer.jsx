@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from "react";
 import AvailableTimes from './AvailableTimes';
 import AvailableServices from './AvailableServices';
+import FormPropsTextFields from './ConsumerConfirmation';
+import styles from '../styles.scss'
 //BusinessID, services from businessID, times associated with service from businessID
 
 //create class selection logic
@@ -27,7 +29,7 @@ const Consumer = () => {
         selectedServiceId={selectedServiceId}
         setSelectedServiceId={setSelectedServiceId}
       />
-      <AvailableTimes
+      {/*<AvailableTimes
         selectedServiceId={selectedServiceId}
         setSelectedServiceId={setSelectedServiceId}
         availableTimes={availableTimes}
@@ -35,8 +37,9 @@ const Consumer = () => {
         selectedTimeId={selectedTimeId}
         setSelectedTimeId={setSelectedTimeId}
         />
-
-      <ConsumerConfirmation
+  */}
+     <FormPropsTextFields
+      selectedServiceId={selectedServiceId}
       selectedTimeId={selectedTimeId}
       userId={userId}/>
     </div>

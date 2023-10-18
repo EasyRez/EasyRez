@@ -1,14 +1,13 @@
 import React from 'react';
 import { Select, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
+import styles from '../styles.scss'
 
-
-const AvailableServices = ({ availableServices, setAvailableServices, setSelectedServiceId, businessId }) => {
-  
-  useEffect(() => {
+const AvailableServices = ({ availableServices, setAvailableServices, setSelectedServiceId, businessId, selectedServiceId }) => {
+    const [selectedService, setSelectedService] = useState("null");
     const fetchData = async () => {
     try {
-      const response = await fetch(`localhost:3000/api/reservations/services:${businessId}`);
+      const response = await fetch(`http://localhost:3000/api/reservations/services:${businessId}`);
       const array = await response.json();
       setAvailableServices(array);
       console.log(array);
@@ -16,21 +15,22 @@ const AvailableServices = ({ availableServices, setAvailableServices, setSelecte
         console.error(error);
         }  
     };
-    fetchData(); //fetches data when businessID or setAvailableServices change
-}, [businessId, setAvailableServices])
-  
+
+  useEffect(() => {
+    //fetchData(); //fetches data when businessID or setAvailableServices change
+}, [])
 
     const handleService = (event) => {
-        selectService(event.target.service);
+        setSelectedServiceId(event.target.value);
       }
 
     return (
       <div className = 'listOfServices'>
       <Select
-        services={availableServices} //value
+        value={selectedServiceId} //value
         onChange={handleService}
         sx={{
-          marginTop: 10,
+          margin: 10,
           width: 250,
           height: 50,
         }}
