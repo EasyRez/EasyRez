@@ -26,7 +26,6 @@ const Business = (props) => {
 
     return (
       <div>
-        <h1>This is Business</h1>
         <Header/>
         <CreateContainer businessId={businessId} />
       </div>
