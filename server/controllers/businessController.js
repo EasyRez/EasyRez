@@ -28,6 +28,7 @@ businessController.getBusinessByUserId = async (req, res, next) => {
 businessController.createService = async (req, res, next) => {
     try {
         const { businessId, serviceName, servicePrice, serviceDuration } = req.body;
+        console.log('the req body is: ', req.body);
         const newService = await Business.createService({ 
             businessId, 
             serviceName, 
