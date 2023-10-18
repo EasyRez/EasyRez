@@ -15,10 +15,6 @@ app.use('/api/businesses', businessRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/reservations', reservationRoutes);
 
-app.get("/", (req, res) => {
-    res.send("hello world!!");
-})
-
 app.use('*', (req, res) => {
     res.sendStatus(404).send('CatchAll Error');
 });

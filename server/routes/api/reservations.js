@@ -3,16 +3,19 @@ const reservationController = require ('../../controllers/reservationController'
 const router = express.Router();
 
 router.post('/create', reservationController.createReservation, (req, res) => {
-    res.status(200).json(res.locals.user);
+    res.status(200).json(res.locals.reservation);
 });
 
+// seeing a list of services 
 router.get('/services/:businessId', reservationController.getAvailableServices, (req, res) => {
     res.status(200).json(res.locals.services);
 });
 
-// seeing a list of services 
 // getting all timeslots for cetain service
-// reserving actual service at said timeslotconst express = require('express');
+router.get('/timeslots/:serviceId', reservationController.getTimeslots, (req, res) => {
+    res.status(200).json(res.locals.timeslots);
+});
+
 
 
 

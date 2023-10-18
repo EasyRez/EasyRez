@@ -1,5 +1,6 @@
 const db = require('../config/connect');
 
+
 const createBusinessProfile = async businessData => {
     try {
         console.log('entered createBusinessProfile');
@@ -32,9 +33,9 @@ const findAll = async () => {
         return result.rows;
     } catch (err) {
         console.error("Error fetching businesses:", err.message);
-        throw err;
+        return next(err);
     }
-}
+};
 
 // get userId from query 
 // do i need to check if userId is admin or user?
@@ -46,6 +47,56 @@ const findByUserId = async userId => {
         return result.rows[0];
     } catch (err) {
         console.error("Error fetching business by user ID:", err.message);
+        return next(err);
+    }
+};
+
+const createService = async serviceData => {
+    try {
+        const { businessId, serviceName, serviceDuration, servicePrice } = serviceData;
+        if (!businessId || !serviceName || !serviceDuration || !servicePrice) {
+            throw new Error('Missing required service fields');
+        }
+
+        const values = [ businessId, serviceName, serviceDuration, servicePrice];
+        const query = `INSERT INTO services 
+            (business_id, service_name, service_duration, service_price) 
+            VALUES ($1, $2, $3, $4) RETURNING *`;
+        const result = await db.query(query, values);
+        return result.rows[0];
+    } catch (err) {
+        console.error("Error creating service: ", err.message);
+        return next(err);
+    }
+};
+
+const createTimeslot = async timeslotData => {
+    try {
+        const { serviceId, maxSpaces, timeslotStartTime, timeslotEndTime } = timeslotData;
+        if (!serviceId || !maxSpaces || !timeslotStartTime || !timeslotEndTime) {
+            throw new Error('Missing required fields');
+    }
+    
+    const values = [serviceId, maxSpaces, timeslotStartTime, timeslotEndTime];
+    const query = `INSERT INTO timeslots
+        (service_id, max_spaces, timeslot_start_time, timeslot_end_time)
+        VALUES ($1, $2, $3, $4) RETURNING *`;
+    const result = await db.query(query, values);
+    return result.rows[0];
+    } catch (err) {
+        console.error("Error creating timeslot: ", err.message);
+        return next(err);
+    }
+};
+
+const getServicesByBusinessId = async businessId => {
+    try {
+        const values = [businessId];
+        const query = `SELECT * FROM services WHERE business_id = $1`;
+        const result = await db.query(query, values);
+        return result.rows;
+    } catch (err) {
+        console.error("Error fetching services by business ID:", err.message);
         throw err;
     }
 };
@@ -53,5 +104,8 @@ const findByUserId = async userId => {
 module.exports = { 
     createBusinessProfile,
     findAll,
-    findByUserId
+    findByUserId,
+    createService,
+    getServicesByBusinessId,
+    createTimeslot
 };

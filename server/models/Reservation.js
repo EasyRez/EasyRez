@@ -35,9 +35,29 @@ const createReservation = async reservationInfo => {
         return next(err);
     }
 
-}
+};
+
+const getTimeslotsByServiceId = async params => {
+    try {
+        const { serviceId } = params;
+        if (!serviceId) {
+            throw new Error('Missing serviceId');
+        }
+        const values = [serviceId]
+        const query = `SELECT * FROM timeslots WHERE service_id = $1`;
+
+        const result = await db.query(query, values);
+        return result.rows;
+
+    } catch (err) {
+        console.error("Error creating user: ", err.message)
+        return next(err);
+    }
+
+} 
 
 module.exports = { 
     getServicesByBusinessId,
-    createReservation
+    createReservation,
+    getTimeslotsByServiceId
 };
