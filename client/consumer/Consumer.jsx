@@ -29,7 +29,7 @@ const Consumer = () => {
         selectedServiceId={selectedServiceId}
         setSelectedServiceId={setSelectedServiceId}
       />
-      <AvailableTimes
+      {/*<AvailableTimes
         selectedServiceId={selectedServiceId}
         setSelectedServiceId={setSelectedServiceId}
         availableTimes={availableTimes}
@@ -37,6 +37,7 @@ const Consumer = () => {
         selectedTimeId={selectedTimeId}
         setSelectedTimeId={setSelectedTimeId}
         />
+  */}
      <FormPropsTextFields
       selectedServiceId={selectedServiceId}
       selectedTimeId={selectedTimeId}
