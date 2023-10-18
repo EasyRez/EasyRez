@@ -1,15 +1,16 @@
 import React from 'react';
 import { Select, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
+import styles from '../styles.scss';
 
 const AvailableTimes = ({selectedServiceId, setSelectedServiceId, availableTimes, setAvailableTimes, selectedTimeId, setSelectedTimeId}) => {
     // const [serviceTimes, selectTime] = useState("choose a time");
     const fetchData = async () => {
     try {
-        const response = await fetch(`http://localhost:3000/api/reservations/timeslots:${selectedServiceId}`);
+        const response = await fetch(`http://localhost:3000/api/reservations/timeslots/${selectedServiceId}`); // : before selectedServiceId?
         const array = await response.json();
-        console.log(array);
         setAvailableTimes(array)
+        console.log(array);
   } catch (error) { 
         console.error(error);
         };
@@ -26,7 +27,7 @@ const AvailableTimes = ({selectedServiceId, setSelectedServiceId, availableTimes
       }
 
     return (
-      <div className = 'listOfTimes'>
+      <div className= 'listOfTimes'>
       <Select
         value={selectedTimeId}
         onChange={handleTime}

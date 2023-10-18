@@ -1,10 +1,10 @@
 import React from 'react';
 import { Select, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
-import styles from '../styles.scss'
+import styles from '../styles.scss';
 
 const AvailableServices = ({ availableServices, setAvailableServices, setSelectedServiceId, businessId, selectedServiceId }) => {
-    const [selectedService, setSelectedService] = useState("null");
+    //const [selectedService, setSelectedService] = useState("null");
     const fetchData = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/reservations/services:${businessId}`);
@@ -17,15 +17,15 @@ const AvailableServices = ({ availableServices, setAvailableServices, setSelecte
     };
 
   useEffect(() => {
-    //fetchData(); //fetches data when businessID or setAvailableServices change
-}, [])
+    fetchData(); //fetches data when businessID or setAvailableServices change
+}, [businessId])
 
     const handleService = (event) => {
         setSelectedServiceId(event.target.value);
       }
 
     return (
-      <div className = 'listOfServices'>
+      <div className= 'listOfServices'>
       <Select
         value={selectedServiceId} //value
         onChange={handleService}

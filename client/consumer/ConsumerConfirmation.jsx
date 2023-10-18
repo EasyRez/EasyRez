@@ -14,7 +14,7 @@ export default function FormPropsTextFields(selectedServiceId, userId, selectedT
       autoComplete="off"
     >
       <div>
-          <div class="name-field">
+          <div className="name-field">
         <TextField
           required
           id="name-field"
@@ -22,7 +22,7 @@ export default function FormPropsTextFields(selectedServiceId, userId, selectedT
           defaultValue="Name"
         />
           </div>
-          <div class="email-field">
+          <div className="email-field">
         <TextField
           required
           id="email-field"
