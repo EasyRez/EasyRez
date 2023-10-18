@@ -39,9 +39,10 @@ const CreateClass = (props) => {
 
   // TODO: verify this API route for posting a new service
   const handleSubmit = async (event) => {
-    const service = { businessId, serviceName, servicePrice, serviceDuration }
+    const service = { businessId: businessId.business_id, serviceName: serviceName, servicePrice: servicePrice, serviceDuration: serviceDuration }
+    console.log(service);
     try {
-      const response = await fetch('http://localhost:3000/api/business/createService', {
+      const response = await fetch('http://localhost:3000/api/businesses/createService', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,11 +59,11 @@ const CreateClass = (props) => {
     return (
       <div id="create-box">
         <h1>Create Class</h1>
-        <TextField id="name" className='classTextField' style={style.button} label="Name" value={serviceName}/>
-        <TextField id="price" className='classTextField' style={style.button} label="Price" value={servicePrice}/>
+        <TextField id="name" className='classTextField' style={style.button} label="Name" onChange={handleInputChange} value={serviceName}/>
+        <TextField id="price" className='classTextField' style={style.button} label="Price" onChange={handleInputChange} value={servicePrice}/>
         <p></p>
-        <TextField id="duration" className='classTextField' style={style.button} label="Duration" value={serviceDuration}/>
-        <Button onClick={handleSubmit} id="create-class"/>
+        <TextField id="duration" className='classTextField' style={style.button} label="Duration" onChange={handleInputChange} value={serviceDuration}/>
+        <Button id="create-class" onClick={handleSubmit}>Submit</Button>
       </div>
     )
 };

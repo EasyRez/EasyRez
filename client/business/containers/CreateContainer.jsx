@@ -12,10 +12,10 @@ const CreateBox = (props) => {
   let box
   switch(selection){
     case 'class':
-      box = <CreateClass/>
+      box = <CreateClass businessId={businessId} />
       break;
     case 'timeslot':
-      box = <CreateTimeSlot/>
+      box = <CreateTimeSlot businessId={businessId}/>
       break;
   }
 

@@ -28,6 +28,7 @@ businessController.getBusinessByUserId = async (req, res, next) => {
 businessController.createService = async (req, res, next) => {
     try {
         const { businessId, serviceName, servicePrice, serviceDuration } = req.body;
+        console.log('the req body is: ', req.body);
         const newService = await Business.createService({ 
             businessId, 
             serviceName, 
@@ -56,6 +57,7 @@ businessController.createTimeslot = async (req, res, next) => {
             timeslotEndTime
         });
         res.locals.timeslot = newTimeslot;
+        return next();
     } catch (err) {
         console.error("Error in createTimeslot middleware:", err.message);
         res.status(400).json({ message: 'Error creating timeslot' });

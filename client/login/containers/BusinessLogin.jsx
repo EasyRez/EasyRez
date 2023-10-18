@@ -16,7 +16,7 @@ const BusinessLogin = (props) => {
         <Button id="login" label="Sign In" onClick={() => {
           setUserId(uInput)
           navigateLogin('business')
-          }}/>
+          }}>Log In</Button>
       </div>
     )
 };

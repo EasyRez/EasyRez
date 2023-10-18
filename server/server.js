@@ -3,10 +3,13 @@ const express = require('express');
 const businessRoutes = require('./routes/api/businesses');
 const userRoutes = require('./routes/api/users');
 const reservationRoutes = require('./routes/api/reservations');
+const cors = require('cors');
+
 
 const app = express();
 const PORT = 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../dist')));

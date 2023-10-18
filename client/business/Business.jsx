@@ -8,12 +8,20 @@ const Business = (props) => {
 
   const [businessId, setBusinessId] = useState();
 
-  useEffect( async () => {
+  useEffect( () => {
     // fetch business id from user id
-    const response = await fetch(`http://localhost:3000/api/business/getId:${userId}`);
-    const id = await response.json();
-    console.log('the business id is: ', id);
-    setBusinessId(id);
+    async function fetchData(){
+      try{
+        console.log(userId);
+        const response = await fetch(`http://localhost:3000/api/businesses/user/${userId}`);
+        const id = await response.json();
+        console.log('the business id is: ', id);
+        setBusinessId(id);
+      } catch (error){
+        console.error(error);
+      }
+    }
+    fetchData();
   }, [userId]);
 
     return (
