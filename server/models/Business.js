@@ -23,7 +23,7 @@ const createBusinessProfile = async businessData => {
 
     } catch (err) {
         console.error("Error creating business: ", err.message);
-        return next(err);
+        // return next(err);
     }
 };
 
@@ -33,7 +33,7 @@ const findAll = async () => {
         return result.rows;
     } catch (err) {
         console.error("Error fetching businesses:", err.message);
-        return next(err);
+        // return next(err);
     }
 };
 
@@ -47,7 +47,7 @@ const findByUserId = async userId => {
         return result.rows[0];
     } catch (err) {
         console.error("Error fetching business by user ID:", err.message);
-        return next(err);
+        // return next(err);
     }
 };
 
@@ -66,26 +66,29 @@ const createService = async serviceData => {
         return result.rows[0];
     } catch (err) {
         console.error("Error creating service: ", err.message);
-        return next(err);
+        // return next(err);
     }
 };
 
 const createTimeslot = async timeslotData => {
     try {
-        const { serviceId, maxSpaces, timeslotStartTime, timeslotEndTime } = timeslotData;
-        if (!serviceId || !maxSpaces || !timeslotStartTime || !timeslotEndTime) {
+        const { serviceId, timeslotStartTime, timeslotEndTime } = timeslotData;
+        if (!serviceId || !timeslotStartTime || !timeslotEndTime) {
             throw new Error('Missing required fields');
     }
+
+    let { maxSpaces } = timeslotData;
+    if (!maxSpaces) maxSpaces = 1;
     
     const values = [serviceId, maxSpaces, timeslotStartTime, timeslotEndTime];
     const query = `INSERT INTO timeslots
-        (service_id, max_spaces, timeslot_start_time, timeslot_end_time)
+        (service_id, max_spaces, start_time, end_time)
         VALUES ($1, $2, $3, $4) RETURNING *`;
     const result = await db.query(query, values);
     return result.rows[0];
     } catch (err) {
         console.error("Error creating timeslot: ", err.message);
-        return next(err);
+        // return next(err);
     }
 };
 

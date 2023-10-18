@@ -10,12 +10,27 @@ import styles from '../styles.scss'
   
 const Consumer = () => {
   
-  const [userId, setUserId] = useState('hardcoded_user_id')
-  const [businessId, setBusinessId] = useState('hardcoded_id');
-  const [availableServices, setAvailableServices] = useState();
+  const [userId, setUserId] = useState(3); // hardcoded
+  const [businessId, setBusinessId] = useState({business_id: 1});
+  const [availableServices, setAvailableServices] = useState([]);
   const [selectedServiceId, setSelectedServiceId] = useState();
   const [availableTimes, setAvailableTimes] = useState();
   const [selectedTimeId, setSelectedTimeId] = useState();
+
+  // useEffect( () => {
+  //   console.log('entering useEffect in create timeslot');
+  //   async function fetchData(){
+  //     try {
+  //       const response = await fetch(`http://localhost:3000/api/businesses/services/${businessId.business_id}`);
+  //       const array = await response.json();
+  //       console.log('servicesList: ', array);
+  //       setAvailableServices(array);
+  //     } catch (error){
+  //       console.error(error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [businessId]);
 
   // fetch request ---> response (array of availbale services)
   // setAvailableServices(response)
@@ -28,6 +43,7 @@ const Consumer = () => {
         setAvailableServices={setAvailableServices}
         selectedServiceId={selectedServiceId}
         setSelectedServiceId={setSelectedServiceId}
+        businessId={businessId}
       />
       {/*<AvailableTimes
         selectedServiceId={selectedServiceId}

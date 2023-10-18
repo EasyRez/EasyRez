@@ -57,6 +57,7 @@ businessController.createTimeslot = async (req, res, next) => {
             timeslotEndTime
         });
         res.locals.timeslot = newTimeslot;
+        return next();
     } catch (err) {
         console.error("Error in createTimeslot middleware:", err.message);
         res.status(400).json({ message: 'Error creating timeslot' });

@@ -3,6 +3,11 @@ import { TextField } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 import { Button } from '@mui/material';
 
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers';
+
 const CreateTimeSlot = (props) => {
 
   const { businessId } = props;
@@ -26,26 +31,6 @@ const CreateTimeSlot = (props) => {
     }
     fetchData();
   }, [businessId]);
-
-  // TODO: THIS HASN"T BEEN BUILT OUT YET
-  const handleSubmit = async (event) => {
-    // { serviceId, maxSpaces, timeslotStartTime, timeslotEndTime }
-    const reservation = { selectedServiceId, startingTime }
-    try {
-      const response = await fetch('http://localhost:3000/api/businesses/createTimeslot', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(service),
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error){
-      console.error(error);
-    }
-  }
-
 
   const style = {
     button: {
@@ -114,9 +99,22 @@ const CreateTimeSlot = (props) => {
         renderInput={(params) => <TextField {...params} label="Class" />}
         onChange={handleSelect}
       />
-      <TextField id="starting-time" className='classTextField' style={style.button} label="Starting Time" onChange={handleInputChange}/>
-      <TextField id="ending-time" className='classTextField' style={style.button} label="Ending Time" onChange={handleInputChange}/>
-      <Button id="create-time-slot">Submit</Button>
+      {/*<TextField id="starting-time" className='classTextField' style={style.button} label="Starting Time" onChange={handleInputChange}/>*/}
+      {/*<TextField id="ending-time" className='classTextField' style={style.button} label="Ending Time" onChange={handleInputChange}/>*/}
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer components={['DateTimePicker']}>
+          <DateTimePicker label="Basic date time picker" onChange={(event) => {setStartingTime(event.$d)}}/>
+        </DemoContainer>
+      </LocalizationProvider>
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer components={['DateTimePicker']}>
+          <DateTimePicker label="Basic date time picker" onChange={(event) => {setEndingTime(event.$d)}}/>
+        </DemoContainer>
+      </LocalizationProvider>
+
+      <Button id="create-time-slot" onClick={()=>{handleSubmit()}}>Submit</Button>
     </div>
   )
 };
