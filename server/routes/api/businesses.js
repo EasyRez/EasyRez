@@ -3,6 +3,10 @@ const Business = require ('../../models/Business');
 const router = express.Router();
 // you import a businessController
 
+/**
+ * ? What requests are we trying to get?
+ */
+
 // get all businesses
 router.get('/', async (req, res) => {
     const businesses = await Business.findAll();
@@ -15,12 +19,13 @@ router.get('/:businessId', async (req, res) => {
     res.json(business);
 });
 
+
 // app.post("/service", businessController.addService, (req, res) => { res.json(serviceAdded) })
 
 
 module.exports = router;
 
-
+// creating service and creating timeslot
 
 /*
 businessController
