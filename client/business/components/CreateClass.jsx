@@ -39,7 +39,7 @@ const CreateClass = (props) => {
 
   // TODO: verify this API route for posting a new service
   const handleSubmit = async (event) => {
-    const service = { businessId, name: serviceName, price: servicePrice, duration: serviceDuration }
+    const service = { businessId, serviceName, servicePrice, serviceDuration }
     try {
       const response = await fetch('http://localhost:3000/api/business/createService', {
         method: 'POST',

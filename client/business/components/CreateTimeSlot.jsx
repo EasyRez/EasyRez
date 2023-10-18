@@ -22,9 +22,24 @@ const CreateTimeSlot = (props) => {
     }
   }, [businessId]);
 
-  // TODO: we need a way for them to pick the service and update state
-  // and update state when they type out the start time
-  // also ensure the start time has proper input validation?
+  // TODO: THIS HASN"T BEEN BUILT OUT YET
+  const handleSubmit = async (event) => {
+    // { serviceId, maxSpaces, timeslotStartTime, timeslotEndTime }
+    const reservation = { selectedServiceId, startingTime }
+    try {
+      const response = await fetch('http://localhost:3000/api/businesses/createTimeslot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(service),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error){
+      console.error(error);
+    }
+  }
 
 
   const style = {
