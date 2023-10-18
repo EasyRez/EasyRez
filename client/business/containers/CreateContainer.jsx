@@ -3,7 +3,9 @@ import { Button } from '@mui/material';
 import CreateClass from '../components/CreateClass';
 import CreateTimeSlot from '../components/CreateTimeSlot';
 
-const CreateBox = () => {
+const CreateBox = (props) => {
+
+  const { businessId } = props;
 
   const [selection, menuSelect] = useState('class');
 
