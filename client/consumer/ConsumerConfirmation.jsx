@@ -37,7 +37,10 @@ export default function FormPropsTextFields(selectedServiceId, userId, selectedT
           defaultValue="Phone Number"
         />
         */}
-    {/*<Button variant="contained">{`Book ${selectedServiceId} for ${userId} at ${selectedTimeId}`}</Button>*/}
+        <div className="confirm-button">
+          <Button variant="contained">{`Book ${selectedServiceId} for ${userId} at ${selectedTimeId}`}
+          </Button>
+        </div>
 
       </div>
     </Box>

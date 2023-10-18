@@ -4,7 +4,8 @@
 }
 
 .name-field,
-.email-field {
+.email-field,
+.confirm-button {
   margin-top: auto;
   display: flex;
   justify-content: center;
@@ -12,4 +13,8 @@
 
 .name-field {
   margin-bottom: 5vh;
+}
+
+.confirm-button {
+    margin-bottom: 2vh;
 }

@@ -18,7 +18,7 @@ const AvailableTimes = ({selectedServiceId, setSelectedServiceId, availableTimes
 
 
     useEffect(() => {
-        //fetchData();
+        //fetchData(); //uncomment to fetch times
     }, [selectedServiceId])
 
 
